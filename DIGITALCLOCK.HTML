@@ -1,0 +1,137 @@
+<!DOCTYPE>
+<HTML>
+<HEAD>
+<link href="https://fonts.googleapis.com/css?family=Orbitron|Text+Me+One" rel="stylesheet">
+<STYLE>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #dbe4e6;
+}
+
+.clock{
+    width: 520px;
+    padding: 40px;
+    background-color: #f3f3f3;
+    box-shadow: 10px 10px 50px #808080;
+    border-radius: 8px;
+}
+
+.clock .display{
+    padding: 40px 10px 10px;
+    border-radius: 6px;
+    background-color: #dddddd;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08) inset,
+                0 1px 1px #fafafa;
+    position: relative;
+}
+
+.clock .display .weekdays{
+    font-size: 18px;
+    font-weight: 600;
+    width: 100%;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    text-align: center;
+    font-family: 'Text Me One', sans-serif;
+}
+
+.weekdays span{
+    padding: 0 10px;
+    opacity: 0.2;
+}
+
+.weekdays span.active{
+    opacity: 1;
+}
+
+.display .timeDisplay{
+    display: flex;
+    justify-content: center;
+}
+
+.timeDisplay .time{
+    font-size: 80px;
+    display: flex;
+    justify-content: center;
+    letter-spacing: 3px;
+    font-family: 'Digital-7 Mono', sans-serif;
+}
+
+.timeDisplay .format{
+    font-size: 30px;
+    margin-top: 32px;
+    margin-left: 10px;
+    font-family: 'Text Me One', sans-serif;
+}
+
+.time .dot{
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    25%{opacity: 0;}
+}
+</STYLE>
+</HEAD>  
+<BODY>
+<SCRIPT>
+function digitalClock(){
+    let dateFunction = new Date()
+    let day = dateFunction.getDay()
+    let hours = dateFunction.getHours()
+    let minutes = dateFunction.getMinutes()
+    let seconds = dateFunction.getSeconds()
+    let timeFormat = 'AM'
+
+    timeFormat = hours >= 12 ? 'PM' : 'AM'
+    hours = hours == 0 ? 12 : hours
+    hours = hours > 12 ? hours - 12 : hours
+    hours = hours < 10 ? '0' + hours : hours
+    minutes = minutes < 10 ? '0' + minutes : minutes
+    seconds = seconds < 10 ? '0' + seconds : seconds
+
+    document.querySelector('.hours').innerHTML = hours
+    document.querySelector('.minutes').innerHTML = minutes
+    document.querySelector('.seconds').innerHTML = seconds
+    document.querySelector('.format').innerHTML = timeFormat
+
+    let todaysDay = document.querySelector(`.weekdays :nth-child(${day + 1})`)
+    todaysDay.classList.add('active')
+}
+setInterval(digitalClock, 1000)
+</SCRIPT>   
+    <div class="clock">
+        <div class="display">
+
+            <div class="weekdays">
+                <span>SUN</span>
+                <span>MON</span>
+                <span>TUE</span>
+                <span>WED</span>
+                <span>THU</span>
+                <span>FRI</span>
+                <span>SAT</span>
+            </div>
+
+            <div class="timeDisplay">
+                <div class="time">
+                    <span class="hours">00</span><span class="dot">:</span>
+                    <span class="minutes">00</span><span class="dot">:</span>
+                    <span class="seconds">00</span>
+                </div>
+                <span class="format">AM</span>
+            </div>
+        </div>
+    </div>
+</BODY>
+</HTML>
